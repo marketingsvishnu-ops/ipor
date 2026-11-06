@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KYOTO — Strength Club</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#eeeae0;
+  --ink:#171815;
+  --red:#c83227;
+  --muted:#77766e;
+  --line:#d5d0c5;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif}
+a{text-decoration:none;color:inherit}
+button{font:inherit;cursor:pointer}
+.nav{
+  height:76px;padding:0 7%;display:flex;align-items:center;
+  justify-content:space-between;background:var(--paper);
+  position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line)
+}
+.logo{font:700 25px Oswald,sans-serif;letter-spacing:2px}
+.logo span{color:var(--red)}
+.nav-links{display:flex;gap:30px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.nav-links a:hover{color:var(--red)}
+.nav-button{background:var(--ink);color:white;padding:13px 20px;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.menu{display:none;border:0;background:none;font-size:25px}
+.hero{
+  min-height:700px;padding:100px 7%;display:grid;
+  grid-template-columns:1.05fr .95fr;align-items:center;gap:40px;
+  position:relative;overflow:hidden
+}
+.hero-copy{position:relative;z-index:2}
+.kicker{font-size:10px;font-weight:800;letter-spacing:4px;color:var(--red);text-transform:uppercase}
+.hero h1{
+  font:700 clamp(76px,11vw,145px)/.91 Oswald,sans-serif;
+  letter-spacing:-3px;margin:25px 0
+}
+.hero h1 span{color:var(--red);display:block}
+.hero-copy p{max-width:410px;color:var(--muted);font-size:14px;line-height:1.9}
+.actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.btn{display:inline-block;padding:16px 23px;font-size:10px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;transition:.25s}
+.btn-red{background:var(--red);color:white}
+.btn-dark{background:var(--ink);color:white}
+.btn:hover{transform:translateY(-4px)}
+.hero-art{
+  height:510px;position:relative;display:flex;align-items:center;justify-content:center;
+  background:#ded8ca;overflow:hidden
+}
+.sun{
+  position:absolute;width:290px;height:290px;background:var(--red);
+  border-radius:50%;top:65px;right:50px;opacity:.95
+}
+.ring{
+  position:absolute;width:380px;height:380px;border:1px solid #17181565;
+  border-radius:50%;transform:rotate(-30deg) scaleY(.65)
+}
+.ring.two{width:460px;height:460px;transform:rotate(35deg) scaleY(.65);border-style:dashed}
+.kanji{
+  position:absolute;z-index:2;font:700 200px Oswald,sans-serif;
+  color:var(--ink);opacity:.9;transform:rotate(-8deg)
+}
+.art-caption{
+  position:absolute;bottom:20px;left:22px;font-size:9px;
+  letter-spacing:3px;font-weight:700
+}
+.vertical{
+  position:absolute;right:15px;top:20px;writing-mode:vertical-rl;
+  font-size:9px;letter-spacing:3px
+}
+.hero-tag{
+  position:absolute;bottom:0;right:7%;font:600 11px Oswald,sans-serif;
+  letter-spacing:3px;color:var(--red)
+}
+.marquee{background:var(--red);color:white;padding:16px 0;overflow:hidden;white-space:nowrap}
+.marquee span{display:inline-block;font:600 20px Oswald,sans-serif;letter-spacing:4px;animation:scroll 24s linear infinite}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);padding:35px 7%;border-bottom:1px solid var(--line)}
+.stat{border-right:1px solid var(--line);padding-left:25px}
+.stat:first-child{padding-left:0}
+.stat:last-child{border:0}
+.stat strong{font:600 42px Oswald,sans-serif;display:block}
+.stat span{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+section.content{padding:100px 7%}
+.section-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:45px;gap:20px}
+.section-heading h2{font:600 clamp(45px,7vw,82px)/.95 Oswald,sans-serif;text-transform:uppercase}
+.section-heading h2 span{color:var(--red)}
+.section-heading p{max-width:300px;color:var(--muted);font-size:12px;line-height:1.8}
+.program-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.program{
+  min-height:300px;background:#ded8ca;padding:25px;position:relative;
+  overflow:hidden;transition:.3s;border:1px solid transparent
+}
+.program:hover{border-color:var(--red);transform:translateY(-6px)}
+.program .index{font-size:10px;color:var(--red);font-weight:800;letter-spacing:2px}
+.program .icon{position:absolute;right:20px;top:35px;font:100px Oswald,sans-serif;color:#17181515}
+.program h3{position:absolute;bottom:55px;left:25px;font:600 32px Oswald,sans-serif}
+.program p{position:absolute;bottom:25px;left:25px;color:var(--muted);font-size:11px}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:65px;align-items:center}
+.about-art{
+  height:460px;background:var(--ink);position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center
+}
+.about-art .circle{
+  width:300px;height:300px;border:2px solid var(--red);border-radius:50%;
+  box-shadow:0 0 0 35px #c8322720,0 0 0 70px #c8322710;
+  animation:pulse 4s ease-in-out infinite
+}
+@keyframes pulse{50%{transform:scale(1.1);opacity:.65}}
+.about-art b{position:absolute;font:700 95px Oswald,sans-serif;color:white;letter-spacing:5px}
+.about-art small{position:absolute;bottom:20px;left:25px;color:#aaa;letter-spacing:3px;font-size:9px}
+.about-copy h2{font:600 clamp(48px,6vw,75px)/.95 Oswald,sans-serif;margin:20px 0}
+.about-copy h2 span{color:var(--red)}
+.about-copy p{color:var(--muted);font-size:13px;line-height:1.9;margin-bottom:17px}
+.points{display:grid;grid-template-columns:1fr 1fr;gap:17px;margin:25px 0}
+.points div{font-size:11px;font-weight:700}
+.points span{color:var(--red);margin-right:8px}
+.pricing{background:var(--ink);color:var(--paper)}
+.pricing .section-heading p{color:#aaa}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.price-card{padding:35px 27px;border:1px solid #ffffff2b}
+.price-card.featured{background:var(--red);border-color:var(--red);transform:translateY(-12px)}
+.price-card .label{font-size:9px;letter-spacing:3px;color:#d8a19b;font-weight:800}
+.price-card.featured .label{color:#ffe0dc}
+.price-card h3{font:600 33px Oswald,sans-serif;margin:17px 0}
+.amount{font:600 55px Oswald,sans-serif}
+.amount small{font:400 12px 'DM Sans',sans-serif;color:#aaa}
+.price-card ul{list-style:none;margin:25px 0}
+.price-card li{font-size:11px;color:#bbb;padding:12px 0;border-bottom:1px solid #ffffff20}
+.price-card li:before{content:"＋";color:var(--red);margin-right:10px}
+.price-card.featured li:before{color:white}
+.price-card.featured li{color:white}
+.price-card .btn{display:block;text-align:center;border:1px solid #ffffff60}
+.price-card.featured .btn{background:white;color:var(--ink);border-color:white}
+.bmi-area{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.bmi-area h2{font:600 70px/.95 Oswald,sans-serif}
+.bmi-area h2 span{color:var(--red)}
+.bmi-area p{color:var(--muted);font-size:13px;line-height:1.8;margin-top:20px}
+.calculator{background:#ded8ca;padding:35px}
+.calculator h3{font:600 30px Oswald,sans-serif}
+.calculator label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;margin:18px 0 8px}
+.calculator input{width:100%;padding:14px;border:1px solid #c5bfb2;background:var(--paper);outline:none}
+.calculator input:focus{border-color:var(--red)}
+.calculator button{width:100%;border:0;margin-top:20px}
+#result{margin-top:18px;min-height:25px;font-size:13px;font-weight:700;color:var(--red)}
+.contact{background:var(--red);color:white;text-align:center;padding:95px 7%}
+.contact h2{font:700 clamp(55px,9vw,110px)/.9 Oswald,sans-serif}
+.contact p{font-size:13px;color:#ffe0dc;margin:20px auto 30px;max-width:440px;line-height:1.8}
+.contact .btn{background:white;color:var(--ink)}
+footer{background:#11120f;color:white;padding:45px 7% 22px}
+.footer-top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.footer-top p{font-size:11px;color:#888;max-width:300px;line-height:1.8;margin-top:15px}
+.footer-links{display:flex;gap:25px;flex-wrap:wrap;font-size:10px;color:#aaa}
+.footer-links a:hover{color:var(--red)}
+.copyright{border-top:1px solid #ffffff20;margin-top:35px;padding-top:20px;font-size:9px;color:#777;letter-spacing:1px}
+.fade{opacity:0;transform:translateY(25px);transition:.7s}
+.fade.visible{opacity:1;transform:translateY(0)}
+@media(max-width:800px){
+ .nav{padding:0 6%}.menu{display:block}
+ .nav-button{display:none}
+ .nav-links{display:none;position:absolute;top:76px;left:0;width:100%;padding:25px 7%;background:var(--paper);flex-direction:column;gap:23px}
+ .nav-links.open{display:flex}
+ .hero{grid-template-columns:1fr;padding:75px 6%;gap:35px}
+ .hero-art{height:350px}
+ .kanji{font-size:150px}
+ .sun{width:220px;height:220px}
+ .stats{grid-template-columns:1fr 1fr;gap:25px;padding:30px 6%}
+ .stat{padding-left:0;border:0}
+ section.content{padding:75px 6%}
+ .section-heading{display:block}
+ .section-heading p{margin-top:18px}
+ .program-grid,.price-grid{grid-template-columns:1fr}
+ .about,.bmi-area{grid-template-columns:1fr;gap:35px}
+ .about-art{height:340px}
+ .price-card.featured{transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="logo" href="#">京TO<span>.</span></a>
+  <button class="menu" id="menu" aria-label="Toggle menu">☰</button>
+  <nav class="nav-links" id="links">
+    <a href="#training">Training</a>
+    <a href="#about">Philosophy</a>
+    <a href="#membership">Membership</a>
+    <a href="#bmi">BMI Check</a>
+  </nav>
+  <a class="nav-button" href="#contact">Join the dojo ↗</a>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-copy">
+    <div class="kicker">静 · Strength in discipline</div>
+    <h1>FIND YOUR <span>POWER.</span></h1>
+    <p>A different kind of training club. Built on discipline, guided by expert coaches, and designed to help you become stronger every single day.</p>
+    <div class="actions">
+      <a class="btn btn-red" href="#membership">Begin your journey ↗</a>
+      <a class="btn btn-dark" href="#training">Explore training</a>
+    </div>
+  </div>
+  <div class="hero-art">
+    <div class="sun"></div>
+    <div class="ring"></div>
+    <div class="ring two"></div>
+    <div class="kanji">力</div>
+    <div class="vertical">DISCIPLINE · FOCUS · STRENGTH</div>
+    <div class="art-caption">KYOTO STRENGTH CLUB / EST. 2026</div>
+  </div>
+  <div class="hero-tag">01 — THE JOURNEY STARTS HERE</div>
+</section>
+
+<div class="marquee"><span>DISCIPLINE IS POWER ✳ TRAIN WITH PURPOSE ✳ FIND YOUR STRENGTH ✳ DISCIPLINE IS POWER ✳ TRAIN WITH PURPOSE ✳ FIND YOUR STRENGTH ✳ </span></div>
+
+<div class="stats">
+  <div class="stat"><strong>12+</strong><span>Years of experience</span></div>
+  <div class="stat"><strong>18</strong><span>Expert trainers</span></div>
+  <div class="stat"><strong>40+</strong><span>Weekly sessions</span></div>
+  <div class="stat"><strong>01</strong><span>Stronger you</span></div>
+</div>
+
+<section class="content" id="training">
+  <div class="section-heading fade">
+    <h2>TRAIN WITH <span>INTENTION.</span></h2>
+    <p>Every session has a purpose. Discover a training style that fits your goals and your pace.</p>
+  </div>
+  <div class="program-grid">
+    <article class="program fade"><span class="index">01 / STRENGTH</span><span class="icon">力</span><h3>IRON DISCIPLINE</h3><p>Build strength from the ground up.</p></article>
+    <article class="program fade"><span class="index">02 / CONDITIONING</span><span class="icon">動</span><h3>FIGHT CONDITIONING</h3><p>Power, speed and endurance.</p></article>
+    <article class="program fade"><span class="index">03 / MOBILITY</span><span class="icon">円</span><h3>FLOW & BALANCE</h3><p>Move better. Recover smarter.</p></article>
+    <article class="program fade"><span class="index">04 / PERFORMANCE</span><span class="icon">速</span><h3>ATHLETE TRAINING</h3><p>Train for the next level.</p></article>
+    <article class="program fade"><span class="index">05 / PERSONAL</span><span class="icon">心</span><h3>PRIVATE COACHING</h3><p>Your goals. Your custom plan.</p></article>
+    <article class="program fade"><span class="index">06 / GROUP</span><span class="icon">集</span><h3>TEAM SESSIONS</h3><p>Find your people. Push together.</p></article>
+  </div>
+</section>
+
+<section class="content about" id="about">
+  <div class="about-art fade">
+    <div class="circle"></div>
+    <b>鍛錬</b>
+    <small>THE ART OF GETTING STRONGER</small>
+  </div>
+  <div class="about-copy fade">
+    <div class="kicker">Our philosophy</div>
+    <h2>STRONG BODY.<br><span>CALM MIND.</span></h2>
+    <p>At Kyoto Strength Club, we believe progress is built through small actions repeated with intention. Our training space brings together thoughtful coaching, quality equipment and a supportive community.</p>
+    <p>There is no perfect starting point. There is only the decision to begin.</p>
+    <div class="points">
+      <div><span>✳</span> Personal coaching</div>
+      <div><span>✳</span> Premium equipment</div>
+      <div><span>✳</span> Small group classes</div>
+      <div><span>✳</span> Recovery guidance</div>
+    </div>
+    <a class="btn btn-red" href="#membership">Explore membership ↗</a>
+  </div>
+</section>
+
+<section class="content pricing" id="membership">
+  <div class="section-heading fade">
+    <h2>CHOOSE YOUR <span>PATH.</span></h2>
+    <p>Simple memberships for every stage of your fitness journey.</p>
+  </div>
+  <div class="price-grid">
+    <article class="price-card fade">
+      <div class="label">01 / BEGINNER</div>
+      <h3>FOUNDATION</h3>
+      <div class="amount">$35<small> / month</small></div>
+      <ul><li>Gym floor access</li><li>Fitness assessment</li><li>Locker facilities</li><li>Member community</li></ul>
+      <a class="btn" href="#contact">Choose Foundation</a>
+    </article>
+    <article class="price-card featured fade">
+      <div class="label">02 / MOST POPULAR</div>
+      <h3>DISCIPLINE</h3>
+      <div class="amount">$65<small> / month</small></div>
+      <ul><li>Everything in Foundation</li><li>Unlimited group classes</li><li>Monthly coach check-in</li><li>Recovery sessions</li></ul>
+      <a class="btn" href="#contact">Choose Discipline</a>
+    </article>
+    <article class="price-card fade">
+      <div class="label">03 / ADVANCED</div>
+      <h3>MASTERY</h3>
+      <div class="amount">$95<small> / month</small></div>
+      <ul><li>Everything in Discipline</li><li>Personal training session</li><li>Custom training plan</li><li>Priority class booking</li></ul>
+      <a class="btn" href="#contact">Choose Mastery</a>
+    </article>
+  </div>
+</section>
+
+<section class="content bmi-area" id="bmi">
+  <div class="fade">
+    <div class="kicker">A starting point</div>
+    <h2>KNOW YOUR<br><span>NUMBERS.</span></h2>
+    <p>Use this simple calculator to estimate your Body Mass Index. BMI is a general screening tool and does not account for muscle mass or individual health factors.</p>
+  </div>
+  <div class="calculator fade">
+    <h3>BMI CALCULATOR</h3>
+    <label for="height">HEIGHT (CM)</label>
+    <input id="height" type="number" min="1" placeholder="Example: 175">
+    <label for="weight">WEIGHT (KG)</label>
+    <input id="weight" type="number" min="1" placeholder="Example: 70">
+    <button class="btn btn-red" onclick="getBMI()">CALCULATE BMI ↗</button>
+    <div id="result" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>YOUR JOURNEY<br>BEGINS NOW.</h2>
+  <p>Take the first step. Come train with us and discover what consistency can do.</p>
+  <a class="btn" href="mailto:hello@kyotostrength.example">CONTACT THE CLUB ↗</a>
+</section>
+</main>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <a class="logo" href="#">京TO<span>.</span></a>
+      <p>Strength through discipline. Progress through consistency. Welcome to Kyoto Strength Club.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#training">Training</a>
+      <a href="#about">Our philosophy</a>
+      <a href="#membership">Membership</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+  <div class="copyright">© 2026 KYOTO STRENGTH CLUB · ALL RIGHTS RESERVED</div>
+</footer>
+
+<script>
+const menu = document.getElementById('menu');
+const links = document.getElementById('links');
+
+menu.addEventListener('click', () => {
+  links.classList.toggle('open');
+  menu.textContent = links.classList.contains('open') ? '✕' : '☰';
+});
+
+links.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    links.classList.remove('open');
+    menu.textContent = '☰';
+  });
+});
+
+function getBMI(){
+  const h = Number(document.getElementById('height').value);
+  const w = Number(document.getElementById('weight').value);
+  const result = document.getElementById('result');
+
+  if(!h || !w || h <= 0 || w <= 0){
+    result.textContent = 'Please enter valid height and weight.';
+    return;
+  }
+
+  const bmi = w / ((h / 100) ** 2);
+  let category = 'Obesity range';
+
+  if(bmi < 18.5) category = 'Underweight range';
+  else if(bmi < 25) category = 'Healthy weight range';
+  else if(bmi < 30) category = 'Overweight range';
+
+  result.textContent = `Your BMI: ${bmi.toFixed(1)} — ${category}`;
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+
+document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
+```
